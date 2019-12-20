@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace SoP
 {
@@ -26,6 +27,10 @@ namespace SoP
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("V1", new Microsoft.OpenApi.Models.OpenApiInfo  { Title="API Docs", Version="v1" });
+            }); ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +43,16 @@ namespace SoP
 
             app.UseHttpsRedirection();
 
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+
+               // To deploy on IIS
+                c.SwaggerEndpoint("/swagger/V1/swagger.json", "Web API V1");
+                c.RoutePrefix = string.Empty;
+            });
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -46,6 +61,9 @@ namespace SoP
             {
                 endpoints.MapControllers();
             });
+
+
+
         }
     }
 }
