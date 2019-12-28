@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29509.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoP", "SoP\SoP.csproj", "{21FB7646-1454-4EE9-BA9B-164D804FC0B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoP", "SoP\SoP.csproj", "{21FB7646-1454-4EE9-BA9B-164D804FC0B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoP-Data", "SoP-Data\SoP-Data.csproj", "{DBB7BA59-F5E2-4FDC-9EAB-BF6343E78C4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoP-Data-Test", "SoP-Data-Test\SoP-Data-Test.csproj", "{5B3B493C-7AC8-4126-915A-08E38A3D8127}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{21FB7646-1454-4EE9-BA9B-164D804FC0B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21FB7646-1454-4EE9-BA9B-164D804FC0B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21FB7646-1454-4EE9-BA9B-164D804FC0B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBB7BA59-F5E2-4FDC-9EAB-BF6343E78C4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBB7BA59-F5E2-4FDC-9EAB-BF6343E78C4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBB7BA59-F5E2-4FDC-9EAB-BF6343E78C4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBB7BA59-F5E2-4FDC-9EAB-BF6343E78C4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B3B493C-7AC8-4126-915A-08E38A3D8127}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B3B493C-7AC8-4126-915A-08E38A3D8127}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B3B493C-7AC8-4126-915A-08E38A3D8127}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B3B493C-7AC8-4126-915A-08E38A3D8127}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
