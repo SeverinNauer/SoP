@@ -29,10 +29,7 @@ namespace SoP
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<SoPContext>(options =>
-            {
-                options.UseMySql(Configuration.GetConnectionString("DataBase"));
-            });
+            services.AddDbContext<SoPContext>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("V1", new Microsoft.OpenApi.Models.OpenApiInfo  { Title="API Docs", Version="v1" });
