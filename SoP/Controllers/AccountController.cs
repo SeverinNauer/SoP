@@ -1,32 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using SoP_Data.Models;
+using SoP_Data;
+using SoP_Data.Services;
 
 namespace SoP.Controllers
 {
     [ApiController]
     public class AccountController : ControllerBase
     {
-        [HttpPost]
-        [Route("[controller]/login")]
-        public string Login([FromBody]LoginModel model)
-        {
-            var results = new List<ValidationResult>();
-            var test = Validator.TryValidateObject(model, new ValidationContext(model), results);
-            return "Test";
-        }
-    }
+        private readonly IUserService _userService;
 
-    public class LoginModel
-    {
-        [Required]
-        public string Username { get; set; }
-        [Required(ErrorMessage = "required btw")]
-        public string Password { get; set; }
+        public AccountController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
+        [HttpPost]
+        [Route("[controller]/create")]
+        public IActionResult Create([FromBody]LoginModel model)
+        {
+            var user = SoP_Data.Models.User.CreateNew(model.Username, model.Password);
+            return Ok(user);
+        }
     }
 }

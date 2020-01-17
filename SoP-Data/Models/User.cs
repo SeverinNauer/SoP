@@ -16,12 +16,16 @@ namespace SoP_Data.Models
         [MaxLength(100)]
         public string Username { get; set; }
         [Required]
-        public string Password { get; set; }
+        public string Password { get; private set; }
 
-        public User(string username, string password)
+        public static User CreateNew(string username, string password)
         {
-            Username = username;
-            Password = BCrypt.Net.BCrypt.HashPassword(password);
+            var user = new User()
+            {
+                Username = username,
+                Password = BCrypt.Net.BCrypt.HashPassword(password)
+            };
+            return user;
         }
     }
 }
