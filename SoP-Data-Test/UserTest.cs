@@ -20,7 +20,7 @@ namespace SoP_Data_Test
                 db.SaveChanges();
 
                 //Add Admin User
-                var adminUser = new User("admin", "admin");
+                var adminUser = User.CreateNew("admin", "admin");
                 db.Users.Add(adminUser);
                 db.SaveChanges();
             }
@@ -39,7 +39,7 @@ namespace SoP_Data_Test
         [TestMethod]
         public void AddUser()
         {
-            var user = new User("testuser", "password");
+            var user = User.CreateNew("testuser", "password");
             using (var db = new SoPContext())
             {
                 db.Users.Add(user);

@@ -85,6 +85,7 @@ namespace SoP
             });
 
             app.UseRouting();
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
 
             app.UseAuthorization();
 
@@ -92,8 +93,6 @@ namespace SoP
             {
                 endpoints.MapControllers();
             });
-
-
 
         }
     }
