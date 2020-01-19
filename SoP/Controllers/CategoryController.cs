@@ -35,12 +35,7 @@ namespace SoP.Controllers
             var user = User.GetUser(_userService);
             if (user != null)
             {
-                var category = new Category()
-                {
-                    Description = model.Description,
-                    Title = model.Title,
-                    UserId = user.Id
-                };
+                var category = Category.CreateNew(model.Title,model.Description, user.Id);
                 var result = _categoryService.Create(category);
                 if (result)
                 {
