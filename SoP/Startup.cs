@@ -62,6 +62,7 @@ namespace SoP
                 c.SwaggerDoc("V1", new Microsoft.OpenApi.Models.OpenApiInfo  { Title="API Docs", Version="v1" });
             }); ;
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICategoryService, CategoryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

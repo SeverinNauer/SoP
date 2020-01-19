@@ -10,6 +10,7 @@ using SoP_Data;
 using SoP_Data.Helpers;
 using SoP_Data.Services;
 using SoP.Extensions;
+using SoP.Models;
 
 namespace SoP.Controllers
 {
@@ -46,7 +47,6 @@ namespace SoP.Controllers
         [Route("[controller]/login")]
         public IActionResult Login([FromBody]LoginModel model)
         {
-            var user = User.GetUser(_userService);
             var user = _userService.GetByUsername(model.Username);
             if (user != null)
             {

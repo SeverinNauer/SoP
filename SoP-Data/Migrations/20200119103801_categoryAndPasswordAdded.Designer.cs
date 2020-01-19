@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoP_Data;
 
 namespace SoP_Data.Migrations
 {
     [DbContext(typeof(SoPContext))]
-    partial class SoPContextModelSnapshot : ModelSnapshot
+    [Migration("20200119103801_categoryAndPasswordAdded")]
+    partial class categoryAndPasswordAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

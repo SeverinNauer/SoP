@@ -12,39 +12,33 @@ namespace SoP_Data_Test
         [TestInitialize]
         public void Initialize()
         {
-            using (var db = new SoPContext())
-            {
-                //Remove users
-                var userList = db.Users.ToList();
-                db.Users.RemoveRange(userList);
-                db.SaveChanges();
+            using var db = new SoPContext();
+            //Remove users
+            var userList = db.Users.ToList();
+            db.Users.RemoveRange(userList);
+            db.SaveChanges();
 
-                //Add Admin User
-                var adminUser = User.CreateNew("admin", "admin");
-                db.Users.Add(adminUser);
-                db.SaveChanges();
-            }
+            //Add Admin User
+            var adminUser = User.CreateNew("admin", "admin");
+            db.Users.Add(adminUser);
+            db.SaveChanges();
         }
         
         [TestMethod]
         public void GetUsers()
         {
-            using (var db = new SoPContext())
-            {
-                var user = db.Users.FirstOrDefault();
-                Assert.AreEqual(user.Username, "admin");
-            }
+            using var db = new SoPContext();
+            var user = db.Users.FirstOrDefault();
+            Assert.AreEqual(user.Username, "admin");
         }
 
         [TestMethod]
         public void AddUser()
         {
             var user = User.CreateNew("testuser", "password");
-            using (var db = new SoPContext())
-            {
-                db.Users.Add(user);
-                db.SaveChanges();
-            }
+            using var db = new SoPContext();
+            db.Users.Add(user);
+            db.SaveChanges();
         }
     }
 }

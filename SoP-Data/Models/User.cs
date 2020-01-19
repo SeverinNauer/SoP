@@ -17,6 +17,7 @@ namespace SoP_Data.Models
         public string Username { get; set; }
         [Required]
         public string Password { get; private set; }
+        public List<Category> Categories { get; set; }
 
         public static User CreateNew(string username, string password)
         {

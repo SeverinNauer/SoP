@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace SoP.Models
 {
-    public class LoginModel
+    public class CategoryModel
     {
         [Required]
-        public string Username { get; set; }
-        [Required]
-        public string Password { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
     }
 }

@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200119102032_categoryAndPasswordAdded.cs" />
+    <Compile Remove="Migrations\20200119102032_categoryAndPasswordAdded.Designer.cs" />
+    <Compile Remove="Migrations\20200119102641_categoryAndPasswordAdded.cs" />
+    <Compile Remove="Migrations\20200119102641_categoryAndPasswordAdded.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0">
       <PrivateAssets>all</PrivateAssets>

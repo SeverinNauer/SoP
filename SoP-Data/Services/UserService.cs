@@ -17,13 +17,6 @@ namespace SoP_Data.Services
     }
     public class UserService : IUserService
     {
-        private readonly AppSettings _appSettings;
-
-        public UserService(IOptions<AppSettings> appSettings)
-        {
-            _appSettings = appSettings.Value;
-        }
-
         public bool Create(User user)
         {
             try
