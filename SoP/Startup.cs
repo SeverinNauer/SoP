@@ -57,6 +57,7 @@ namespace SoP
                 });
             services.AddControllers();
             services.AddDbContext<SoPContext>();
+            services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("V1", new Microsoft.OpenApi.Models.OpenApiInfo  { Title="API Docs", Version="v1" });
@@ -85,8 +86,17 @@ namespace SoP
                 c.RoutePrefix = string.Empty;
             });
 
-            app.UseRouting();
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));
+
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseRouting();
 
             app.UseAuthorization();
 
