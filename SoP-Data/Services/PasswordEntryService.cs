@@ -1,12 +1,14 @@
 ﻿using SoP_Data.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace SoP_Data.Services
 {
     public interface IPasswordEntryService
     {
         List<PasswordEntry> GetForUser(int userId);
+        PasswordEntry GetForUser(int passwordEntryId, int userId);
     }
 
     class PasswordEntryService
@@ -22,6 +24,12 @@ namespace SoP_Data.Services
                 .Where(pass => categories.Contains(pass.CategoryId))
                 .ToList();
         }
-        
+        public PasswordEntry GetForUser(int passwordEntryId, int userId)
+        {
+            using var context = new SoPContext();
+            return context.PasswordEntries
+                    .Include(pass => pass.Category)
+                    .FirstOrDefault(pass => pass.Id == passwordEntryId && pass.Category.UserId == userId);
+        }
     }
 }

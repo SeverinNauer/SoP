@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SoP.ErrorHandling;
 using SoP.Extensions;
 using SoP.Models;
 using SoP_Data.Dtos;
@@ -33,11 +34,11 @@ namespace SoP.Controllers
                 var result = _categoryService.Create(category);
                 if (result)
                 {
-                    return Ok("Category.Creation.Success");
+                    return Ok(ResultMessages.Creation_Success);
                 }
-                return BadRequest("Category.Creation.Failed");
+                return BadRequest(ResultMessages.Creation_Failed);
             }
-            return Unauthorized("User.Authorization.NotOnDb");
+            return Unauthorized(ResultMessages.User_Authorization_NotOnDb);
         }
 
         [Authorize]
@@ -54,11 +55,11 @@ namespace SoP.Controllers
                     cat.Title = model.Title;
                     cat.Description = model.Description;
                     _categoryService.Save(cat);
-                    return Ok("Category.Update.Success");
+                    return Ok(ResultMessages.Update_Success);
                 }
-                return NotFound("User.Category.NotFound");
+                return NotFound(ResultMessages.Category_NotFound);
             }
-            return Unauthorized("User.Authorization.NotOnDb");
+            return Unauthorized(ResultMessages.User_Authorization_NotOnDb);
         }
 
         [Authorize]
@@ -74,16 +75,16 @@ namespace SoP.Controllers
                 {
                     if (cat.Passwords.Any())
                     {
-                        return BadRequest("Catergoy.Delete.Error.Has.References");
+                        return BadRequest(ResultMessages.Catergoy_Delete_Error_Has_References);
                     }
                     if (_categoryService.Delete(categoryId))
                     {
-                        return Ok("Category.Delete.Success");
+                        return Ok(ResultMessages.Delete_Success);
                     }
                 }
-                return NotFound("User.Category.NotFound");
+                return NotFound(ResultMessages.Category_NotFound);
             }
-            return Unauthorized("User.Authorization.NotOnDb");
+            return Unauthorized(ResultMessages.User_Authorization_NotOnDb);
         }
 
         [Authorize]
@@ -99,9 +100,9 @@ namespace SoP.Controllers
                 {
                     return Ok(new CategoryDto(category));
                 }
-                return NotFound("User.Category.NotFound");
+                return NotFound(ResultMessages.Category_NotFound);
             }
-            return Unauthorized("User.Authorization.NotOnDb");
+            return Unauthorized(ResultMessages.User_Authorization_NotOnDb);
         }
 
         [Authorize]
@@ -115,7 +116,7 @@ namespace SoP.Controllers
                 var categories = _categoryService.GetForUser(user.Id);
                 return Ok(categories.Select(cat => new CategoryDto(cat)).ToList());
             }
-            return Unauthorized("User.Authorization.NotOnDb");
+            return Unauthorized(ResultMessages.User_Authorization_NotOnDb);
         }
     }
 }

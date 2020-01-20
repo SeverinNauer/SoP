@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using SoP_Data.Helpers;
 using SoP_Data.Services;
 using SoP.Models;
+using SoP.ErrorHandling;
 
 namespace SoP.Controllers
 {
@@ -30,14 +31,14 @@ namespace SoP.Controllers
             var exists = _userService.UserExists(model.Username);
             if (exists)
             {
-                return BadRequest("User.Creation.AlreadyExists");
+                return BadRequest(ResultMessages.User_Creation_AlreadyExists);
             }
             var user = SoP_Data.Models.User.CreateNew(model.Username, model.Password);
             if (_userService.Create(user))
             {
-                return Ok("User.Creation.Success");
+                return Ok(ResultMessages.Creation_Success);
             }
-            return BadRequest("User.Creation.Failed");
+            return BadRequest(ResultMessages.Creation_Failed);
         }
 
         [HttpPost]
@@ -61,10 +62,10 @@ namespace SoP.Controllers
                         SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
                     };
                     var token = tokenHandler.CreateToken(tokenDescriptor);
-                    return Ok("Bearer " + tokenHandler.WriteToken(token));
+                    return Ok(ResultMessages.Bearer(tokenHandler.WriteToken(token)));
                 }
             }
-            return Unauthorized("User.Login.Invalid");
+            return Unauthorized(ResultMessages.User_Login_Invalid);
         }
     }
 }

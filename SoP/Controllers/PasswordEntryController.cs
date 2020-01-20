@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SoP.ErrorHandling;
 using SoP.Extensions;
 using SoP_Data.Dtos;
 using SoP_Data.Services;
@@ -14,7 +15,7 @@ namespace SoP.Controllers
         private readonly IPasswordEntryService _passwordEntryService;
         private readonly ICategoryService _categoryService;
 
-        public PasswordEntryController(IUserService userService, IPasswordEntryService passwordEntryService, ICategoryService categoryService) 
+        public PasswordEntryController(IUserService userService, IPasswordEntryService passwordEntryService, ICategoryService categoryService)
         {
             _userService = userService;
             _passwordEntryService = passwordEntryService;
@@ -32,7 +33,25 @@ namespace SoP.Controllers
                 var passwordEntries = _passwordEntryService.GetForUser(user.Id);
                 return Ok(passwordEntries.Select(pass => new PasswordEntryDto(pass)).ToList());
             }
-            return Unauthorized("User.Authorization.NotOnDb");
+            return Unauthorized(ResultMessages.User_Authorization_NotOnDb);
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("[controller]/get")]
+        public IActionResult Get(int passwordEntryId)
+        {
+            var user = User.GetUser(_userService);
+            if (user != null)
+            {
+                var passwordEntry = _passwordEntryService.GetForUser(passwordEntryId, user.Id);
+                if (passwordEntry != null) 
+                {
+                    return Ok(new PasswordEntryDto(passwordEntry));
+                }
+                return NotFound(ResultMessages.PasswordEntry_NotFound);
+            }
+            return Unauthorized(ResultMessages.User_Authorization_NotOnDb);
         }
     }
 }
