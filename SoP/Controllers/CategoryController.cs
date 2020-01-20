@@ -29,7 +29,7 @@ namespace SoP.Controllers
             var user = User.GetUser(_userService);
             if (user != null)
             {
-                var category = Category.CreateNew(model.Title,model.Description, user.Id);
+                var category = Category.CreateNew(model.Title, model.Description, user.Id);
                 var result = _categoryService.Create(category);
                 if (result)
                 {
@@ -49,7 +49,7 @@ namespace SoP.Controllers
             if (user != null)
             {
                 var cat = _categoryService.GetById(model.CategoryId, user.Id);
-                if(cat != null)
+                if (cat != null)
                 {
                     cat.Title = model.Title;
                     cat.Description = model.Description;
@@ -89,22 +89,31 @@ namespace SoP.Controllers
         [Authorize]
         [HttpGet]
         [Route("[controller]/get")]
-        public IActionResult Get(int? categoryId = null)
+        public IActionResult GetById(int categoryId)
         {
             var user = User.GetUser(_userService);
             if (user != null)
             {
-                if (categoryId == null)
-                {
-                    var categories = _categoryService.GetForUser(user.Id);
-                    return Ok(categories.Select(cat => new CategoryDto(cat)).ToList());
-                }
-                var category = _categoryService.GetById(categoryId.Value, user.Id);
+                var category = _categoryService.GetById(categoryId, user.Id);
                 if (category != null)
                 {
                     return Ok(new CategoryDto(category));
                 }
                 return NotFound("User.Category.NotFound");
+            }
+            return Unauthorized("User.Authorization.NotOnDb");
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("[controller]/getAll")]
+        public IActionResult Get()
+        {
+            var user = User.GetUser(_userService);
+            if (user != null)
+            {
+                var categories = _categoryService.GetForUser(user.Id);
+                return Ok(categories.Select(cat => new CategoryDto(cat)).ToList());
             }
             return Unauthorized("User.Authorization.NotOnDb");
         }

@@ -8,7 +8,7 @@ using System.Linq;
 namespace SoP.Controllers
 {
     [ApiController]
-    public class PasswordEntryController:ControllerBase
+    public class PasswordEntryController : ControllerBase
     {
         private readonly IUserService _userService;
         private readonly IPasswordEntryService _passwordEntryService;
