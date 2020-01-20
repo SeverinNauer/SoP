@@ -1,15 +1,12 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using SoP_Data;
 using SoP_Data.Helpers;
 using SoP_Data.Services;
-using SoP.Extensions;
 using SoP.Models;
 
 namespace SoP.Controllers

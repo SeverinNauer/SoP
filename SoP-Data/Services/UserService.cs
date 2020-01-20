@@ -1,9 +1,5 @@
-﻿using Microsoft.Extensions.Options;
-using SoP_Data.Helpers;
-using System;
+﻿using System;
 using System.Linq;
-using System.Collections.Generic;
-using System.Text;
 using SoP_Data.Models;
 
 namespace SoP_Data.Services

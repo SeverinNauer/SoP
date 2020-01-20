@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Text;
 using SoP_Data.Models;
 
 namespace SoP_Data.Dtos

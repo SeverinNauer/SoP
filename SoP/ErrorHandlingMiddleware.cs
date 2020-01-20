@@ -1,12 +1,8 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Data.Common;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SoP_Data.Helpers
@@ -34,10 +30,20 @@ namespace SoP_Data.Helpers
         private static Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
             var code = HttpStatusCode.InternalServerError; // 500 if unexpected
-            var result = JsonConvert.SerializeObject(new { error = ex.Message });
+            var result = JsonConvert.SerializeObject(
+                new { 
+                    errorCode = "",
+                    error = ex.Message 
+                }
+            );
             if (ex is DbException)
             {
-                result = JsonConvert.SerializeObject(new { error = "DB.Exception" });
+                result = JsonConvert.SerializeObject(
+                    new {
+                        errorCode = "DB.Exception",
+                        error = ex.Message
+                    }
+                );
             }
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
