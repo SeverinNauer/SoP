@@ -4,14 +4,7 @@ using SoP_Data.Models;
 
 namespace SoP_Data.Services
 {
-    public interface IUserService
-    {
-        bool Create(User user);
-        public bool UserExists(string username);
-        User GetByUsername(string username);
-        User GetByID(int id);
-    }
-    public class UserService : IUserService
+    public class UserService
     {
         public bool Create(User user)
         {

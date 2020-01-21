@@ -13,10 +13,10 @@ namespace SoP.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private readonly IUserService _userService;
-        private readonly ICategoryService _categoryService;
+        private readonly UserService _userService;
+        private readonly CategoryService _categoryService;
 
-        public CategoryController(IUserService userService, ICategoryService categoryService)
+        public CategoryController(UserService userService, CategoryService categoryService)
         {
             _userService = userService;
             _categoryService = categoryService;
@@ -77,10 +77,8 @@ namespace SoP.Controllers
                     {
                         return BadRequest(ResultMessages.Catergoy_Delete_Error_Has_References);
                     }
-                    if (_categoryService.Delete(categoryId))
-                    {
-                        return Ok(ResultMessages.Delete_Success);
-                    }
+                    _categoryService.Delete(categoryId);
+                    return Ok(ResultMessages.Delete_Success);
                 }
                 return NotFound(ResultMessages.Category_NotFound);
             }

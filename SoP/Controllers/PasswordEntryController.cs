@@ -13,11 +13,11 @@ namespace SoP.Controllers
     [ApiController]
     public class PasswordEntryController : ControllerBase
     {
-        private readonly IUserService _userService;
-        private readonly IPasswordEntryService _passwordEntryService;
-        private readonly ICategoryService _categoryService;
+        private readonly UserService _userService;
+        private readonly PasswordEntryService _passwordEntryService;
+        private readonly CategoryService _categoryService;
 
-        public PasswordEntryController(IUserService userService, IPasswordEntryService passwordEntryService, ICategoryService categoryService)
+        public PasswordEntryController(UserService userService, PasswordEntryService passwordEntryService, CategoryService categoryService)
         {
             _userService = userService;
             _passwordEntryService = passwordEntryService;
@@ -57,7 +57,7 @@ namespace SoP.Controllers
         }
 
         [Authorize]
-        [HttpGet]
+        [HttpPost]
         [Route("[controller]/create")]
         public IActionResult Create([FromBody]PasswordEntryModel model)
         {
@@ -72,6 +72,25 @@ namespace SoP.Controllers
                     return Ok(ResultMessages.Creation_Success);
                 }
                 return BadRequest(ResultMessages.Creation_Failed);
+            }
+            return Unauthorized(ResultMessages.User_Authorization_NotOnDb);
+        }
+
+        [Authorize]
+        [HttpDelete]
+        [Route("[controller]/delete")]
+        public IActionResult Delete(int passwordEntryId)
+        {
+            var user = User.GetUser(_userService);
+            if (user != null)
+            {
+                var passwordEntry = _passwordEntryService.GetForUser(passwordEntryId, user.Id);
+                if (passwordEntry != null)
+                {
+                    _passwordEntryService.Delete(passwordEntry.Id);
+                    return Ok(ResultMessages.Delete_Success);
+                }
+                return NotFound(ResultMessages.PasswordEntry_NotFound);
             }
             return Unauthorized(ResultMessages.User_Authorization_NotOnDb);
         }

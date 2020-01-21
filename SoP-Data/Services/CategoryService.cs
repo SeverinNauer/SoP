@@ -6,15 +6,7 @@ using SoP_Data.Models;
 
 namespace SoP_Data.Services
 {
-    public interface ICategoryService
-    {
-        bool Create(Category category);
-        Category GetById(int catId, int userId);
-        void Save(Category category);
-        bool Delete(int categoryId);
-        List<Category> GetForUser(int userId);
-    }
-    public class CategoryService : ICategoryService
+    public class CategoryService
     {
         public bool Create(Category category)
         {
@@ -38,7 +30,7 @@ namespace SoP_Data.Services
             context.SaveChanges();
         }
 
-        public bool Delete(int categoryId)
+        public void Delete(int categoryId)
         {
             using var context = new SoPContext();
             var cat = context.Categories.FirstOrDefault(cat => cat.Id == categoryId);
@@ -46,9 +38,7 @@ namespace SoP_Data.Services
             {
                 context.Categories.Remove(cat);
                 context.SaveChanges();
-                return true;
             }
-            return false;
         }
 
         public Category GetById(int catId, int userId)

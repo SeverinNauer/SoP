@@ -5,14 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SoP_Data.Services
 {
-    public interface IPasswordEntryService
-    {
-        List<PasswordEntry> GetForUser(int userId);
-        PasswordEntry GetForUser(int passwordEntryId, int userId);
-        void Save(PasswordEntry passwordEntry);
-    }
-
-    class PasswordEntryService
+    public class PasswordEntryService
     {
         public List<PasswordEntry> GetForUser(int userId)
         {
@@ -38,6 +31,17 @@ namespace SoP_Data.Services
             using var context = new SoPContext();
             context.Update(passwordEntry);
             context.SaveChanges();
+        }
+
+        public void Delete(int passwordEntryId) 
+        {
+            using var context = new SoPContext();
+            var pass = context.PasswordEntries.FirstOrDefault(pass => pass.Id == passwordEntryId);
+            if (pass != null)
+            {
+                context.PasswordEntries.Remove(pass);
+                context.SaveChanges();
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ namespace SoP.Extensions
 {
     public static class ClaimExtension
     {
-        public static User GetUser(this ClaimsPrincipal claim, IUserService service)
+        public static User GetUser(this ClaimsPrincipal claim, UserService service)
         {
             var username = claim.Identity.Name;
             return service.GetByUsername(username);

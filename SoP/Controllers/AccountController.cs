@@ -15,10 +15,10 @@ namespace SoP.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly UserService _userService;
         private readonly AppSettings _appSettings;
 
-        public AccountController(IUserService userService, IOptions<AppSettings> appSettings)
+        public AccountController(UserService userService, IOptions<AppSettings> appSettings)
         {
             _userService = userService;
             _appSettings = appSettings.Value;
