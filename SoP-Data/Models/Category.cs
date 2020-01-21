@@ -25,13 +25,12 @@ namespace SoP_Data.Models
 
         public static Category CreateNew(string title, string description, int userId)
         {
-            var category = new Category()
+            return new Category()
             {
                 Title = title,
                 Description = description,
                 UserId = userId
             };
-            return category;
         }
     }
 }

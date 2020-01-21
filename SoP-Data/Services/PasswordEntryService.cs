@@ -9,6 +9,7 @@ namespace SoP_Data.Services
     {
         List<PasswordEntry> GetForUser(int userId);
         PasswordEntry GetForUser(int passwordEntryId, int userId);
+        void Save(PasswordEntry passwordEntry);
     }
 
     class PasswordEntryService
@@ -30,6 +31,13 @@ namespace SoP_Data.Services
             return context.PasswordEntries
                     .Include(pass => pass.Category)
                     .FirstOrDefault(pass => pass.Id == passwordEntryId && pass.Category.UserId == userId);
+        }
+
+        public void Save(PasswordEntry passwordEntry) 
+        {
+            using var context = new SoPContext();
+            context.Update(passwordEntry);
+            context.SaveChanges();
         }
     }
 }

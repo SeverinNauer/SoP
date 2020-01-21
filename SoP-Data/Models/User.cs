@@ -17,12 +17,11 @@ namespace SoP_Data.Models
 
         public static User CreateNew(string username, string password)
         {
-            var user = new User()
+            return new User()
             {
                 Username = username,
                 Password = BCrypt.Net.BCrypt.HashPassword(password)
             };
-            return user;
         }
     }
 }

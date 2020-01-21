@@ -22,5 +22,19 @@ namespace SoP_Data.Models
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
+        public static PasswordEntry CreateNew(string username, string password, string title, string description, string url, long? expirationDate, int categoryId) 
+        {
+            return new PasswordEntry()
+            {
+                Username = username,
+                Password = password,
+                Title = title,
+                Description = description,
+                Url = url,
+                ExpirationDate = expirationDate.HasValue ? (DateTime?)null : new DateTime(expirationDate.Value),
+                CategoryId = categoryId
+            };
+        }
+
     }
 }
