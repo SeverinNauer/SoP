@@ -6,6 +6,7 @@ using SoP.Models;
 using SoP_Data.Dtos;
 using SoP_Data.Models;
 using SoP_Data.Services;
+using System;
 using System.Linq;
 
 namespace SoP.Controllers
@@ -94,5 +95,32 @@ namespace SoP.Controllers
             }
             return Unauthorized(ResultMessages.User_Authorization_NotOnDb);
         }
+
+        [Authorize]
+        [HttpPut]
+        [Route("[controller]/update")]
+        public IActionResult Update([FromBody]PasswordEntryModel model)
+        {
+            var user = User.GetUser(_userService);
+            if (user != null)
+            {
+                if (model.Id != null) {
+                    var passwordEntry = _passwordEntryService.GetById(model.Id.Value, user.Id);
+                    if (passwordEntry != null)
+                    {
+                        passwordEntry.Username = model.Username;
+                        passwordEntry.Password = model.Password;
+                        passwordEntry.Title = model.Title;
+                        passwordEntry.Description = model.Description;
+                        passwordEntry.Url = model.Url;
+                        passwordEntry.ExpirationDate = model.ExpirationDate.HasValue ? (DateTime?)null : new DateTime(model.ExpirationDate.Value);
+                    }
+                    return NotFound(ResultMessages.PasswordEntry_NotFound);
+                }
+                return NotFound(ResultMessages.PasswordEntry_IdNotSet);
+            }
+            return Unauthorized(ResultMessages.User_Authorization_NotOnDb);
+        }
+
     }
 }

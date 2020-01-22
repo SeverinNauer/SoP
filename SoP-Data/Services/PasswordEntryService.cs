@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace SoP_Data.Services
 {
@@ -42,6 +43,14 @@ namespace SoP_Data.Services
                 context.PasswordEntries.Remove(pass);
                 context.SaveChanges();
             }
+        }
+
+        public PasswordEntry GetById(int passwordEntryId, int userId)
+        {
+            using var context = new SoPContext();
+            return context.PasswordEntries
+                .Include(pass => pass.Category)
+                .FirstOrDefault(pass => pass.Id == passwordEntryId && pass.Category.UserId == userId);
         }
     }
 }

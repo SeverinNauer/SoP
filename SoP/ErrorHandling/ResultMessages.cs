@@ -20,6 +20,7 @@ namespace SoP.ErrorHandling
         public static string Catergoy_Delete_Error_Has_References = "Catergoy.Delete.Error.Has.References";
 
         public static string PasswordEntry_NotFound = "PasswordEntry.NotFound";
+        public static string PasswordEntry_IdNotSet = "PasswordEntry.IdNotSet";
 
         public static string Bearer(string token) 
         {

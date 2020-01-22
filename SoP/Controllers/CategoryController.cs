@@ -49,7 +49,7 @@ namespace SoP.Controllers
             var user = User.GetUser(_userService);
             if (user != null)
             {
-                var cat = _categoryService.GetById(model.CategoryId, user.Id);
+                var cat = _categoryService.GetById(model.Id, user.Id);
                 if (cat != null)
                 {
                     cat.Title = model.Title;
