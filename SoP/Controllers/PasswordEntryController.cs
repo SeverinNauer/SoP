@@ -114,6 +114,8 @@ namespace SoP.Controllers
                         passwordEntry.Description = model.Description;
                         passwordEntry.Url = model.Url;
                         passwordEntry.ExpirationDate = model.ExpirationDate.HasValue ? (DateTime?)null : new DateTime(model.ExpirationDate.Value);
+                        _passwordEntryService.Save(passwordEntry);
+                        return Ok(ResultMessages.Update_Success);
                     }
                     return NotFound(ResultMessages.PasswordEntry_NotFound);
                 }
